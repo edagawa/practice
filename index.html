@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="js">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    .charabox {
+        display: inline-block;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+<button id="js_btn1">画像を表示</button>
+<button id="js_btn2">画像を５個表示</button>
+<div id="js_output"></div>
+</body>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script>
+$(function(){
+
+//変数の設定
+var character = [
+        {'img': 'aliens', 'name': 'エイリアン'},
+        {'img': 'buzz', 'name': 'バズ'},
+        {'img': 'jessie', 'name': 'ジェシー'},
+        {'img': 'potato', 'name': 'ポテトヘッド'},
+        {'img': 'woody', 'name': 'ウッディ'}],
+    imgIndex = 0;
+
+$('#js_btn1').on('click',function(){
+    //キャラクタ情報を取得する
+    var charaInfo = character[imgIndex % character.length];
+    $('<div class="charabox"><img><p></p><button>削除する</button></div>').find('img').attr('src', 'img/' + charaInfo.img + '.png').next('p').text(charaInfo.name).next('button').on('click',function(){
+        if (window.confirm('削除しますか？')) {
+            $(this).parent().remove();
+        }
+    }).end().end().end().appendTo('#js_output');
+    //$('<div><img><button>削除する</button></div>').attr('src', 'img/' + charaInfo.img + '.png').add('span').text(charaInfo.name).appendTo('#js_output');
+    imgIndex++
+});
+});
+</script>
+</html>
