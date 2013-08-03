@@ -28,17 +28,30 @@ var character = [
         {'img': 'woody', 'name': 'ウッディ'}],
     imgIndex = 0;
 
-$('#js_btn1').on('click',function(){
+//画像を表示させる処理
+function displayCahra(num) {
     //キャラクタ情報を取得する
     var charaInfo = character[imgIndex % character.length];
-    $('<div class="charabox"><img><p></p><button>削除する</button></div>').find('img').attr('src', 'img/' + charaInfo.img + '.png').next('p').text(charaInfo.name).next('button').on('click',function(){
-        if (window.confirm('削除しますか？')) {
-            $(this).parent().remove();
-        }
-    }).end().end().end().appendTo('#js_output');
-    //$('<div><img><button>削除する</button></div>').attr('src', 'img/' + charaInfo.img + '.png').add('span').text(charaInfo.name).appendTo('#js_output');
-    imgIndex++
+    for(var i = 0, m = num; i < m; i++) {
+        $('<div class="charabox"><img><p></p><button>削除する</button></div>').find('img').attr('src', 'img/' + charaInfo.img + '.png').next('p').text(charaInfo.name).next('button').on('click',function(){
+            if (window.confirm(charaInfo.name + 'を削除しますか？')) {
+                $(this).parent().remove();
+            }
+        }).end().end().end().appendTo('#js_output');
+        imgIndex++
+    }
+}
+
+//ひとつずつキャラクターを表示させる
+$('#js_btn1').on('click',function(){
+    displayCahra(1);
 });
+
+//一度にすべてのキャラクターを表示させる
+$('#js_btn2').on('click',function(){
+    displayCahra(character.length);
+});
+
 });
 </script>
 </html>
